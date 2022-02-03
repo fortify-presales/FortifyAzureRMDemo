@@ -3,25 +3,25 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "clientId": {
-            "value": ""
+            "value": "CHANGE_ME"
         },
         "clientSecret": {
-            "value": ""
+            "value": "CHANGE_ME"
         },
         "appDnsPrefix": {
             "value": "fortifyarm"
         },
         "tomcatVMAdminUsername": {
-            "value": ""
+            "value": "tomcat"
         },
         "mySqlAdminLogin": {
-            "value": ""
+            "value": "mysql"
         },
         "mySqlAdminPassword": {
-            "value": "!"
+            "value": "CHANBGE_ME"
         },
         "adminPasswordOrKey": {
-            "value": ""
+            "value": "CHANGE_ME"
         }
     }
 }

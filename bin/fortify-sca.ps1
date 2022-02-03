@@ -20,30 +20,26 @@ if ([string]::IsNullOrEmpty($AppName)) { throw "Application Name has not been se
 # Run the translation and scan
 
 # Compile the application if bot already built
-#$DependenciesFile = Join-Path -Path (Get-Location) -ChildPath target\cp.txt
-#if (-not (Test-Path -PathType Leaf -Path $DependenciesFile)) {
-#    Write-Host Cleaning up workspace...
-#    & sourceanalyzer '-Dcom.fortify.sca.ProjectRoot=.fortify' -b "$AppName" -clean
-#    Write-Host Re-compiling application in debug mode...
-#    & mvn -P release,jar -DskipTests '-Dmaven.compiler.debuglevel="lines,vars,source"' verify package
-    # write dependencies to file we can use later in sourceanalyzer command
-#    & mvn dependency:build-classpath '-Dmdep.outputFile=.\target\cp.txt'
-#}
-#$ClassPath = Get-Content -Path $DependenciesFile
+$DependenciesFile = Join-Path -Path (Get-Location) -ChildPath build\classpath.txt
+if (-not (Test-Path -PathType Leaf -Path $DependenciesFile)) {
+    Write-Host Cleaning up workspace...
+    & sourceanalyzer '-Dcom.fortify.sca.ProjectRoot=.fortify' -b "$AppName" -clean
+    Write-Host Re-compiling application ...
+    & .\gradlew.bat clean build writeClasspath
+}
+$ClassPath = Get-Content -Path $DependenciesFile
 
 Write-Host Running translation...
 & sourceanalyzer '-Dcom.fortify.sca.ProjectRoot=.fortify' $ScanSwitches -b "$AppName" `
-    -verbose -exclude ".\bin" "."
-#    -jdk 1.8 -java-build-dir "target/classes" -cp $ClassPath -verbose `
-#    -exclude ".\src\main\resources\static\js\lib" -exclude ".\src\main\resources\static\css\lib" -exclude ".\node_modules" `
-#    "src/main/java/**/*" "src/main/resources/**/*" "Dockerfile*"
+    -jdk 11 -java-build-dir "target/classes" -cp $ClassPath -verbose `
+    "."
 
 Write-Host Running scan...
 & sourceanalyzer '-Dcom.fortify.sca.ProjectRoot=.fortify' $ScanSwitches -b "$AppName" `
-    -verbose `
+    -cp $ClassPath  -java-build-dir "target/classes" -verbose `
     -build-project "$AppName" -build-version "$AppVersion" -build-label "SNAPSHOT" -scan -f "$($AppName).fpr"
-#    -cp $ClassPath  -java-build-dir "target/classes" -verbose `
-
+# summarise issue count by analyzer
+& fprutility -information -analyzerIssueCounts -project "$($AppName).fpr"   
 
 Write-Host Generating PDF report...
 & ReportGenerator '-Dcom.fortify.sca.ProjectRoot=.fortify' -user "Demo User" -format pdf -f "$($AppName).pdf" -source "$($AppName).fpr"

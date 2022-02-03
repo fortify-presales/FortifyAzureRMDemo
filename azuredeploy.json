@@ -179,7 +179,8 @@
                 "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('webAppName'))]": "Resource"
             },
             "properties": {
-                "ApplicationId": "[variables('appInsightsName')]"
+                "ApplicationId": "[variables('appInsightsName')]",
+                "Application_Type": "web"
             }
         },
         {
@@ -188,10 +189,14 @@
             "location": "[parameters('location')]",
             "name": "[variables('mySqlServerName')]",
             "properties": {
+                "createMode": "Default",
                 "version": "5.7",
                 "storageMB": 51200,
                 "administratorLogin": "[parameters('mySqlAdminLogin')]",
-                "administratorLoginPassword": "[parameters('mySqlAdminPassword')]"
+                "administratorLoginPassword": "[parameters('mySqlAdminPassword')]",
+                "sslEnforcement" : "Disabled",
+                "backupRetentionDays": "7",
+                "geoRedundantBackup": "Disabled"
             },
             "sku": {
                 "name": "B_Gen5_2",

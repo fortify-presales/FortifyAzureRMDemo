@@ -9,18 +9,18 @@ function Test-Environment {
         throw "Unable to find sourceanalyzer.exe in your PATH"
     }
 
+    # Check FPR Utility is on the path
+    if ((Get-Command "fprutility.bat" -ErrorAction SilentlyContinue) -eq $null)
+    {
+        Write-Error "Unable to find fprutility.bat in your PATH"
+        Break
+    }
+
     # Check Fortify Client is installed
     if ((Get-Command "fortifyclient.bat" -ErrorAction SilentlyContinue) -eq $null)
     {
         Write-Error "fortifyclient.bat is not in your PATH, will not upload to SSC"
         $UploadToSSC = $False
-    }
-
-    # Check ScanCentral client is on the path
-    if ((Get-Command "scancentral.bat" -ErrorAction SilentlyContinue) -eq $null)
-    {
-        Write-Error "Unable to find scancentral.bat in your PATH"
-        Break
     }
 
     Write-Host "OK."
