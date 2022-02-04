@@ -26,7 +26,7 @@ SSC_PASSWORD=admin
 # SSC Authentication Token (recommended to use CIToken)
 SSC_AUTH_TOKEN=XXXXX
 # Name of the application in SSC
-SSC_APP_NAME=JavaARM
+SSC_APP_NAME=FortifyAzureRMDemo
 # Name of the application version in SSC
 SSC_APP_VER_NAME=main
 # Azure (Resource Manager)
@@ -80,7 +80,7 @@ You can also use the Fortify VS Code plugin, for example if you just wanted to s
 To view results:
 
 ```
-auditworkbench .\JavaARMDemo.fpr
+auditworkbench .\FortifyAzureRMDemo.fpr
 ```
 
 Deploy
