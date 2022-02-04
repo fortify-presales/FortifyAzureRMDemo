@@ -1,6 +1,6 @@
-# Fortify Java App with Azure Resource Manager (ARM) Template Demo
+# Fortify AST of Azure Resource Manager (ARM) templates
 
-This is an example project for demo of Fortify SCA vulnerability scanning of Azure Resource Manager templates
+This is an example project for the demonstration of Fortify Application Security Testing of Azure Resource Manager templates. It also includes a simple Java application so that both application code and infrastructure code can be security scanned simultaneously.
 
 To use this demo you will need the following:
 
