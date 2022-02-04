@@ -9,7 +9,7 @@
             "value": "mysql"
         },
         "mySqlAdminPassword": {
-            "value": "CHANGE_ME"
+            "value": "CHANGE_ME!"
         }
     }
 }

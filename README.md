@@ -65,9 +65,10 @@ Next update the file `azuredeploy.parameters.json` with content similar to the f
 Security Scan
 -------------
 
-To run a Fortify SCA scan (from PowerShell console) you can use the included script:
+To run a Fortify SCA scan (from PowerShell console) you can use the included scripts:
 
 ```
+.\gradlew.bat build
 .\bin\fortify-sca.ps1
 ```
 
@@ -79,7 +80,7 @@ You can also use the Fortify VS Code plugin, for example if you just wanted to s
 To view results:
 
 ```
-auditworkbench .\JavaARM.fpr
+auditworkbench .\JavaARMDemo.fpr
 ```
 
 Deploy
@@ -89,8 +90,8 @@ If you want build the Azure infrstructure from the included template (and maybe 
 (from PowerShell console):    
 
 ```
-New-AzResourceGroup -Name fortify-java-arm -Location eastus
-New-AzResourceGroupDeployment -ResourceGroupName fortify-java-arm -TemplateFile ./azuredeploy.json -TemplateParameterFile ./azuredeploy.parameters.json
+New-AzResourceGroup -Name fortify-java-arm-demo -Location eastus
+New-AzResourceGroupDeployment -ResourceGroupName fortify-java-arm-demo -TemplateFile ./azuredeploy.json -TemplateParameterFile ./azuredeploy.parameters.json
 ```
 
 Replace `eastus` with your own region
@@ -100,7 +101,6 @@ Wait a few minutes...
 To deploy the web application:
 
 ```
-.\gradlew.bat clean build
 .\gradlew.bat azureWebAppDeploy
 ```
 
@@ -109,7 +109,7 @@ The application should then be available at the URL listed when the template was
 To clean up the resources (from PowerShell console):
 
 ```
-Remove-AzResourceGroup -Name fortify-arm-demo
+Remove-AzResourceGroup -Name fortify-java-arm-demo
 ```
 
 Kevin A. Lee - kevin.lee@microfocus.com

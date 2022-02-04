@@ -34,7 +34,7 @@
     },
     "functions": [],
     "variables": {
-        "storageAccountName": "[concat(toLower(parameters('appDnsPrefix')), 'storage')]",
+        "storageAccountName": "[replace(concat(toLower(parameters('appDnsPrefix')), 'stg'),'-', '')]",
         "servicePlanName": "[concat(parameters('appDnsPrefix'), 'ServicePlan')]",
         "webAppName": "[concat(parameters('appDnsPrefix'), '-web')]",
         "appInsightsName": "[concat(parameters('appDnsPrefix'), 'AppInsights')]",
