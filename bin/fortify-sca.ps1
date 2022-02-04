@@ -31,13 +31,15 @@ $ClassPath = Get-Content -Path $DependenciesFile
 
 Write-Host Running translation...
 & sourceanalyzer '-Dcom.fortify.sca.ProjectRoot=.fortify' $ScanSwitches -b "$AppName" `
-    -jdk 11 -java-build-dir "target/classes" -cp $ClassPath -verbose `
-    "."
+    -jdk 1.8 -java-build-dir "build/classes" -cp $ClassPath -verbose `
+    "./src/**/*" "./*.json" "./build.gradle"
 
 Write-Host Running scan...
 & sourceanalyzer '-Dcom.fortify.sca.ProjectRoot=.fortify' $ScanSwitches -b "$AppName" `
-    -cp $ClassPath  -java-build-dir "target/classes" -verbose `
+   -cp $ClassPath  -java-build-dir "build/classes" -verbose `
     -build-project "$AppName" -build-version "$AppVersion" -build-label "SNAPSHOT" -scan -f "$($AppName).fpr"
+
+
 # summarise issue count by analyzer
 & fprutility -information -analyzerIssueCounts -project "$($AppName).fpr"   
 

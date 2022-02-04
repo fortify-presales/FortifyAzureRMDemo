@@ -1,8 +1,9 @@
-
 plugins {
     id 'java'
     id 'war'
     id 'maven-publish'
+    id "com.bmuschko.tomcat" version "2.7.0"
+    id "com.microsoft.azure.azurewebapp" version "1.2.0"
 }
 
 repositories {
@@ -14,8 +15,23 @@ repositories {
 
 dependencies {
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.15'
+    implementation group: 'log4j', name: 'log4j', version: '1.2.17'
+}
+
+dependencies {
+    def tomcatVersion = '9.0.1'
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+           "org.apache.tomcat.embed:tomcat-embed-logging-juli:9.0.0.M6",
+           "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
 }    
 
+tomcat {
+    httpProtocol = 'org.apache.coyote.http11.Http11Nio2Protocol'
+    ajpProtocol  = 'org.apache.coyote.ajp.AjpNio2Protocol'
+}
+
+def props = new Properties()
+file(".env").withInputStream { props.load(it) }
 
 group = 'com.microfocus.app'
 version = '1.0'
@@ -24,7 +40,26 @@ sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
 war {
-    archiveName = 'products.war'
+    archiveFileName = 'products.war'
+}
+
+azurewebapp {
+    subscription = props.getProperty("AZURE_SUBSCRIPTION_ID") // '17d2722b-256e-47e5-84b8-5b01f509a42c'
+    resourceGroup = props.getProperty("AZURE_RESOURCE_GROUP") //'fortify-arm-demo'
+    appName = props.getProperty("AZURE_APP_NAME") // 'fortifyarmWeb'
+    pricingTier = 'P1v2'
+    region = props.getProperty("AZURE_REGION") // 'eastus'
+    runtime {
+      os = 'Windows'
+      webContainer = 'Tomcat 9.0' // or 'Java SE' if you want to run an executable jar
+      javaVersion = 'Java 8'
+    }
+    appSettings {
+        key1=value1
+    }
+    auth {
+        type = 'azure_cli' // support azure_cli, oauth2, device_code and service_principal
+    }
 }
 
 publishing {

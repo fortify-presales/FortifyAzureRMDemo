@@ -18,7 +18,7 @@ public class DbAccess {
         {
         	Statement stmt = conn.createStatement(); 
 
-            String sql = "SELECT * FROM products WHERE Description LIKE '%" + query + "%'";
+            String sql = "SELECT * FROM products WHERE Title LIKE '%" + query + "%' OR Description LIKE '%" + query + "%'";
             ResultSet rs = stmt.executeQuery(sql);
 
     		ArrayList<Product> products= new ArrayList<Product>();
@@ -66,13 +66,13 @@ public class DbAccess {
 	        stmt.executeUpdate(sqlSchema);
 	        
 	        // initialize data
-	        String sqlData = "INSERT INTO products VALUES(1, 'Lorem ipsum dolor sit amet', 'Nullam', 'Donec id nulla molestie tortor gravida venenatis eu non leo. Suspendisse eget ante non arcu elementum dictum.');";
+	        String sqlData = "INSERT INTO products VALUES(1, 'Solodox 750', 'Pain Medication', 'Donec id nulla molestie tortor gravida venenatis eu non leo. Suspendisse eget ante non arcu elementum dictum.');";
 	        stmt.executeUpdate(sqlData);
 
-	        sqlData = "INSERT INTO products VALUES(2, 'Donec id nulla molestie tortor', 'Pellentesque', 'Suspendisse eget ante non arcu elementum dictum. Praesent sit amet est non tortor consequat imperdiet sed in risus.');";
+	        sqlData = "INSERT INTO products VALUES(2, 'Alphadex Plus', 'Supplement', 'Suspendisse eget ante non arcu elementum dictum. Praesent sit amet est non tortor consequat imperdiet sed in risus.');";
 	        stmt.executeUpdate(sqlData);
 
-	        sqlData = "INSERT INTO products VALUES(3, 'Fusce aliquam orci id vehicula malesuada', 'Phasellus', 'Mauris id nisl diam. Pellentesque ut leo massa. Vivamus et enim eu enim facilisis tempor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae');";
+	        sqlData = "INSERT INTO products VALUES(3, 'Dontax', 'Heart Medication', 'Mauris id nisl diam. Pellentesque ut leo massa. Vivamus et enim eu enim facilisis tempor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae');";
 	        stmt.executeUpdate(sqlData);
 
 	        stmt.close();
@@ -137,8 +137,9 @@ public class DbAccess {
 		return resultSet.getInt(1) != 0;
 	}
 
-	// Get the connection string settings from Azure Web App, following this format.
-	// Database=[host];Data Source=[server];User Id=[username];Password=[password]
+	// Get the connection string settings from Azure Web App, following this format:
+	// 		Database=[database];Data Source=[server name];User Id=[username];Password=[password]
+	// You can also creat a System Environment Variable called MYSQLCONNSTR_defaultConnection on your machine for testing
 	private Map<String, String> getConnectionData() throws Exception {
 		String connStr = System.getenv("MYSQLCONNSTR_defaultConnection");
 		if (connStr == null) {

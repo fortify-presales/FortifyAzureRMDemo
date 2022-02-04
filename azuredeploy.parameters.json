@@ -2,25 +2,13 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "clientId": {
-            "value": "CHANGE_ME"
-        },
-        "clientSecret": {
-            "value": "CHANGE_ME"
-        },
         "appDnsPrefix": {
-            "value": "fortifyarm"
-        },
-        "tomcatVMAdminUsername": {
-            "value": "tomcat"
+            "value": "kal-fortify-java-arm"
         },
         "mySqlAdminLogin": {
             "value": "mysql"
         },
         "mySqlAdminPassword": {
-            "value": "CHANBGE_ME"
-        },
-        "adminPasswordOrKey": {
             "value": "CHANGE_ME"
         }
     }
