@@ -26,7 +26,7 @@ SSC_PASSWORD=admin
 # SSC Authentication Token (recommended to use CIToken)
 SSC_AUTH_TOKEN=XXXXX
 # Name of the application in SSC
-SSC_APP_NAME=JavaARM
+SSC_APP_NAME=FortifyAzureRMDemo
 # Name of the application version in SSC
 SSC_APP_VER_NAME=main
 # Azure (Resource Manager)
@@ -85,7 +85,7 @@ An example results file  (in PDF) is available here:
 To view the full results yourself you can use:
 
 ```
-auditworkbench .\JavaARMDemo.fpr
+auditworkbench .\FortifyAzureRMDemo.fpr
 ```
 
 There should be a number of Azure Resource Manager issues (as well as some Java issues) including (but not limited to):
