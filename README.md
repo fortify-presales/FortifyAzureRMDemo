@@ -1,5 +1,8 @@
 # Fortify scanning of Azure Resource Manager (ARM) templates
 
+[![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2F2Fmfdemo%2FFortifyAzureRMDemo%2Fazuredeploy.json)
+[![Visualize](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/visualizebutton.svg?sanitize=true)](http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Fmfdemo%2FFortifyAzureRMDemo%2Fmaster%2Fazuredeploy.json)
+
 This is an example project for the demonstration of Fortify vulnerability scanning of [Azure Resource Manager (ARM)](https://azure.microsoft.com/en-gb/features/resource-manager/) templates. It also includes the source code for a simple Java application so that both application code and infrastructure code can be scanned simultaneously.
 
 To use this demo in full you will need the following software installed:
@@ -138,7 +141,7 @@ Note: it will take a few minutes to create all of the infrastructure.
 
 You can navigate to the [Azure portal](https://portal.azure.com/#home) and see the infrastructure as it is created.
 
-Once the infrastructure has been created you can navigate to the Web application itself (shown as the output `webAppUrl` from the `New-AzResourceGroupDeployment` command) 
+You can navigate to the built Web application (shown as the output `webAppUrl` from the `New-AzResourceGroupDeployment` command above) 
 and you should see a screen similar to the below:
 
 ![Screenshot](media/fortify-java-arm-web-blank.png)
@@ -146,13 +149,13 @@ and you should see a screen similar to the below:
 Deploy Application
 ------------------
 
-Once the infrastructure has been completed, you can deploy the web application using the following:
+Once the infrastructure has been built, you can deploy the web application using the following:
 
 ```
 .\gradlew.bat azureWebAppDeploy
 ```
 
-After a few minutes refresh the Web application (as listed as on output from the `New-AzResourceGroupDeployment` command) and your should see the screen below:
+After a few minutes refresh the Web application and you should see the screen below:
 
 ![Screenshot](media/fortify-java-arm-web-deployed.png)
 
