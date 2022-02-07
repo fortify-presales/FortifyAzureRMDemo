@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import org.apache.log4j.Logger;
 
 public class DbAccess {
 	
+	static Logger logger = Logger.getLogger(DbAccess.class);
+
 	public ArrayList<Product> getProducts(String query) throws Exception {
         Connection conn = getConnection();
 
@@ -16,6 +19,10 @@ public class DbAccess {
         // Perform some SQL queries over the connection.
         try
         {
+			if (logger.isDebugEnabled()){
+				logger.debug("DBAccess:getProducts");
+				logger.debug("Query: " + query);
+			}
         	Statement stmt = conn.createStatement(); 
 
             String sql = "SELECT * FROM products WHERE Title LIKE '%" + query + "%' OR Description LIKE '%" + query + "%'";
@@ -45,12 +52,22 @@ public class DbAccess {
 	}
 
 	public void initDbIfNeed(Connection conn) throws Exception {
+		if (logger.isDebugEnabled()){
+			logger.debug("DBAccess:initDbIfNeed");
+		}
 		// check table existence
 		if (tableExists(conn, "products")) {
+			if (logger.isDebugEnabled()){
+				logger.debug("Products table already exists in database");
+			}
 			// skip as table already exists
 			return;
 		}
 		
+		if (logger.isDebugEnabled()){
+			logger.debug("Creating products table in database");
+		}
+
 		try
 		{
 			Statement stmt = conn.createStatement();
@@ -91,6 +108,11 @@ public class DbAccess {
         String database = connData.get("Database");
         String user = connData.get("User Id");
         String password = connData.get("Password");
+
+		if (logger.isDebugEnabled()){
+			logger.debug("DBAccess:getConnection");
+			logger.debug("host:"+host+";database:"+database+";user:"+user);
+		}
         
         // check that the driver is installed
         try

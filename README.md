@@ -2,18 +2,18 @@
 
 This is an example project for the demonstration of Fortify vulnerability scanning of Azure Resource Manager (ARM) templates. It also includes a simple Java application so that both application code and infrastructure code can be security scanned simultaneously.
 
-To use this demo you will need the following:
+To use this demo in full you will need the following software installed:
 
-* Visual Studio Code
+* [Visual Studio Code](https://code.visualstudio.com/)
 * Visual Studio Code [Azure Resource Manager tools](https://marketplace.visualstudio.com/items?itemName=msazurermtools.azurerm-vscode-tools) extension
-* Fortify SCA and Tools (21.2 or later)
+* [Fortify SCA and Tools](https://www.microfocus.com/en-us/cyberres/application-security/static-code-analyzer) (21.2 or later is required for Azure Resource Manager rules)
 * Visual Studio Code [Fortify](https://marketplace.visualstudio.com/items?itemName=fortifyvsts.fortify-extension-for-vs-code) extension
-* [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows) or the [Azure PowerShell module](https://docs.microsoft.com/en-us/powershell/azure/install-az-ps) installed and authenticated
+* [Azure PowerShell module](https://docs.microsoft.com/en-us/powershell/azure/install-az-ps) installed and authenticated
 
 Setup
 -----
 
-If you are going to deploy the application to Azure you will need to choose a unique name, it is recommend
+If you want to deploy the application to Azure you will need to choose a unique name, it is recommend
 you choose something along the line of `[your-initials]-fortify-java-arm`, e.g. `kal-fortify-java-arm`.
 
 First create a file called `.env` in the project root directory with content similar to the following:
@@ -39,10 +39,13 @@ AZURE_APP_NAME=fortify-java-armWeb
 AZURE_REGION=eastus
 ```
 
-Make sure you set an appropriate value for `AZURE_SUBSCRIPTION_ID` and if you want to upload the results to SSC
-`SSC_URL` and `SSC_AUTH_TOKEN`.
+Make sure you set an appropriate value for `AZURE_SUBSCRIPTION_ID` and if you want to upload the results to Fortify
+Software Security Center `SSC_URL` and `SSC_AUTH_TOKEN`.
 
-Next update the file `azuredeploy.parameters.json` with content similar to the following:
+Note: this file should not be added to source control as its contains usernames/passwords.
+
+Next update the file `azuredeploy.parameters.json` with content similar to the following, please use the same
+unique name as chosen above for the `appDnsPrefix` element:
 
 ```
 {
@@ -65,7 +68,7 @@ Next update the file `azuredeploy.parameters.json` with content similar to the f
 Security Scan
 -------------
 
-To run a Fortify SCA scan (from PowerShell console) you can use the included scripts:
+To run a Fortify Static Code Analyzer scan (from a PowerShell console) you can use the included script `fortify-sca.ps1` as follows:
 
 ```
 .\gradlew.bat build
@@ -77,17 +80,57 @@ This will scan the Java applications source code and the Azure Resource Manageme
 You can also use the Fortify VS Code plugin, for example if you just wanted to scan the Azure Resoure Manager template
 `azuredeploy.json`.
 
-To view results:
+An example results file  (in PDF) is available here:
+
+To view the full results yourself you can use:
 
 ```
 auditworkbench .\JavaARMDemo.fpr
 ```
 
-Deploy
-------
+There should be a number of Azure Resource Manager issues (as well as some Java issues) including (but not limited to):
 
-If you want build the Azure infrstructure from the included template (and maybe run a WebInspect scan on it), carry out the following
-(from PowerShell console):    
+- Azure Resource Manager Misconfiguration: Insecure Transport
+  (Caused by the app service not encoring HTTPS)
+- Insecure Transport: Azure Storage
+- Insecure Transport: Database
+- Insecure Transport: Weak SSL Protocal
+- Access Control: Azure Storage
+- Azure Resource Manager: Overly Permissive CORS Policy  
+
+Run Application (locally)
+-------------------------
+
+If you want to run the application included locally you will need to have [MySQL](https://www.mysql.com/) installed and set a system
+called `MYSQLCONNSTR_defaultConnection` with a value similar to the following:
+
+```
+Database=armdemo;Data Source=localhost;User Id=root;Password=root
+```
+
+Make sure the userid/password is valid for your local MySQL instance and that the database refered to is already created.
+
+You can the run the application using the following:
+
+```
+.\gradlew.bat build tomcatRun
+```
+
+The application should then be available at the URL: `http://localhost:8080/AzureRMDemo`. If it fails to start make sure you have
+no other applications running on port 8080.
+
+To stop the application, in another console, run the following:
+
+```
+.\gradlew.bat tomcatStop
+```
+
+
+Deploy Infrastructure
+---------------------
+
+If you want build/deploy the Azure infrastructure from the included Azure Resource Manager template, carry out the following
+(from aPowerShell console):    
 
 ```
 New-AzResourceGroup -Name fortify-java-arm-demo -Location eastus
@@ -96,20 +139,36 @@ New-AzResourceGroupDeployment -ResourceGroupName fortify-java-arm-demo -Template
 
 Replace `eastus` with your own region
 
-Wait a few minutes...
+Note: it will take a few minutes to create all of the infrastructure.
 
-To deploy the web application:
+You can navigate to the [Azure portal](https://portal.azure.com/#home) and see the infrastructure as its is created.
+You can also navigate to the Web application itself (shown as the output `webAppUrl` from the `New-AzResourceGroupDeployment` command) 
+and you should see a screen similar to the below:
+
+![Screenshot](media/fortify-java-arm-web-blank.png)
+
+Deploy Application
+------------------
+
+Once the infrastructure has been completed, you can deploy the web application using the following:
 
 ```
 .\gradlew.bat azureWebAppDeploy
 ```
 
-The application should then be available at the URL listed when the template was deployed.
+After a few minutes refresh the Web application (as listed as on output from the `New-AzResourceGroupDeployment` command) and your should see the screen below:
 
-To clean up the resources (from PowerShell console):
+![Screenshot](media/fortify-java-arm-web-deployed.png)
+
+Remove Application and Infrastructure
+-------------------------------------
+
+To clean up all the resources you can execute the following (from a PowerShell console):
 
 ```
 Remove-AzResourceGroup -Name fortify-java-arm-demo
 ```
+
+---
 
 Kevin A. Lee - kevin.lee@microfocus.com
