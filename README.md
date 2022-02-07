@@ -1,6 +1,6 @@
 # Fortify scanning of Azure Resource Manager (ARM) templates
 
-This is an example project for the demonstration of Fortify vulnerability scanning of Azure Resource Manager (ARM) templates. It also includes a simple Java application so that both application code and infrastructure code can be security scanned simultaneously.
+This is an example project for the demonstration of Fortify vulnerability scanning of [Azure Resource Manager (ARM)](https://azure.microsoft.com/en-gb/features/resource-manager/) templates. It also includes the source code for a simple Java application so that both application code and infrastructure code can be scanned simultaneously.
 
 To use this demo in full you will need the following software installed:
 
@@ -39,10 +39,8 @@ AZURE_APP_NAME=fortify-java-armWeb
 AZURE_REGION=eastus
 ```
 
-Make sure you set an appropriate value for `AZURE_SUBSCRIPTION_ID` and if you want to upload the results to Fortify
-Software Security Center `SSC_URL` and `SSC_AUTH_TOKEN`.
-
-Note: this file should not be added to source control as its contains usernames/passwords.
+Make sure you set an appropriate value for `AZURE_SUBSCRIPTION_ID`, and if you want to upload the results to Fortify
+Software Security Center, update `SSC_URL` and `SSC_AUTH_TOKEN` as well.
 
 Next update the file `azuredeploy.parameters.json` with content similar to the following, please use the same
 unique name as chosen above for the `appDnsPrefix` element:
@@ -77,10 +75,9 @@ To run a Fortify Static Code Analyzer scan (from a PowerShell console) you can u
 
 This will scan the Java applications source code and the Azure Resource Management infrastructure definition.
 
-You can also use the Fortify VS Code plugin, for example if you just wanted to scan the Azure Resoure Manager template
-`azuredeploy.json`.
-
 An example results file  (in PDF) is available here:
+
+![samples\JavaARMDemo.pdf]
 
 To view the full results yourself you can use:
 
