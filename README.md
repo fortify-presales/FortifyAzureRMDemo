@@ -75,7 +75,7 @@ To run a Fortify Static Code Analyzer scan (from a PowerShell console) you can u
 
 This will scan the Java applications source code and the Azure Resource Management infrastructure definition.
 
-An example results file  (in PDF) is available [here](.\samples\JavaARMDemo.pdf).
+An example results file  (in PDF) is available [here](samples/JavaARMDemo.pdf).
 
 To view the full results yourself you can use:
 
@@ -96,8 +96,8 @@ There should be a number of Azure Resource Manager issues (as well as some Java 
 Run Application (locally)
 -------------------------
 
-If you want to run the application included locally you will need to have [MySQL](https://www.mysql.com/) installed and set a system
-called `MYSQLCONNSTR_defaultConnection` with a value similar to the following:
+If you want to run the Java application locally you will need to have [MySQL](https://www.mysql.com/) installed and set a system
+environment called `MYSQLCONNSTR_defaultConnection` with a value similar to the following:
 
 ```
 Database=armdemo;Data Source=localhost;User Id=root;Password=root
