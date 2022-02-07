@@ -124,20 +124,21 @@ To stop the application, in another console, run the following:
 Deploy Infrastructure
 ---------------------
 
-If you want build/deploy the Azure infrastructure from the included Azure Resource Manager template, carry out the following
-(from aPowerShell console):    
+If you want build the Azure infrastructure from the included Azure Resource Manager template, you can carry out the following
+(from a PowerShell console):    
 
 ```
 New-AzResourceGroup -Name fortify-java-arm-demo -Location eastus
 New-AzResourceGroupDeployment -ResourceGroupName fortify-java-arm-demo -TemplateFile ./azuredeploy.json -TemplateParameterFile ./azuredeploy.parameters.json
 ```
 
-Replace `eastus` with your own region
+Replace `eastus` with your own desired region
 
 Note: it will take a few minutes to create all of the infrastructure.
 
-You can navigate to the [Azure portal](https://portal.azure.com/#home) and see the infrastructure as its is created.
-You can also navigate to the Web application itself (shown as the output `webAppUrl` from the `New-AzResourceGroupDeployment` command) 
+You can navigate to the [Azure portal](https://portal.azure.com/#home) and see the infrastructure as it is created.
+
+Once the infrastructure has been created you can navigate to the Web application itself (shown as the output `webAppUrl` from the `New-AzResourceGroupDeployment` command) 
 and you should see a screen similar to the below:
 
 ![Screenshot](media/fortify-java-arm-web-blank.png)
