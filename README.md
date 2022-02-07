@@ -1,8 +1,5 @@
 # Fortify scanning of Azure Resource Manager (ARM) templates
 
-[![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2F2Fmfdemo%2FFortifyAzureRMDemo%2Fazuredeploy.json)
-[![Visualize](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/visualizebutton.svg?sanitize=true)](http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2Fmfdemo%2FFortifyAzureRMDemo%2Fmaster%2Fazuredeploy.json)
-
 This is an example project for the demonstration of Fortify vulnerability scanning of [Azure Resource Manager (ARM)](https://azure.microsoft.com/en-gb/features/resource-manager/) templates. It also includes the source code for a simple Java application so that both application code and infrastructure code can be scanned simultaneously.
 
 To use this demo in full you will need the following software installed:
