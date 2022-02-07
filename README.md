@@ -75,9 +75,7 @@ To run a Fortify Static Code Analyzer scan (from a PowerShell console) you can u
 
 This will scan the Java applications source code and the Azure Resource Management infrastructure definition.
 
-An example results file  (in PDF) is available here:
-
-![samples\JavaARMDemo.pdf]
+An example results file  (in PDF) is available [here](.\samples\JavaARMDemo.pdf).
 
 To view the full results yourself you can use:
 
