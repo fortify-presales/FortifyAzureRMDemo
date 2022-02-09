@@ -39,6 +39,14 @@ description = 'Simple Products App'
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
+sourceSets {
+    main {
+        resources {
+            srcDirs "src/main/webapp", "src/main/configs"
+        }
+    }
+}
+
 war {
     archiveFileName = 'products.war'
 }

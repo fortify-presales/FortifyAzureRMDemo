@@ -128,6 +128,7 @@ If you want build the Azure infrastructure from the included Azure Resource Mana
 (from a PowerShell console):    
 
 ```
+cd src\main\configs
 New-AzResourceGroup -Name fortify-java-arm-demo -Location eastus
 New-AzResourceGroupDeployment -ResourceGroupName fortify-java-arm-demo -TemplateFile ./azuredeploy.json -TemplateParameterFile ./azuredeploy.parameters.json
 ```

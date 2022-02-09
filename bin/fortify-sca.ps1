@@ -32,7 +32,7 @@ $ClassPath = Get-Content -Path $DependenciesFile
 Write-Host Running translation...
 & sourceanalyzer '-Dcom.fortify.sca.ProjectRoot=.fortify' $ScanSwitches -b "$AppName" `
     -jdk 1.8 -java-build-dir "build/classes" -cp $ClassPath -verbose `
-    "./src/**/*" "./*.json" "./build.gradle"
+    "./src/**/*" "./build.gradle"
 
 Write-Host Running scan...
 & sourceanalyzer '-Dcom.fortify.sca.ProjectRoot=.fortify' $ScanSwitches -b "$AppName" `
