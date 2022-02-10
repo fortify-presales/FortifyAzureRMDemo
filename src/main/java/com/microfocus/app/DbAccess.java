@@ -11,6 +11,11 @@ public class DbAccess {
 	
 	static Logger logger = Logger.getLogger(DbAccess.class);
 
+	private final static String DEFAULT_HOST = "localhost";
+	private final static String DEFAULT_DB = "products";
+	private final static String DEFAULT_USER = "mysql";
+	private final static String DEFAULT_PASSWORD = "mysql";
+
 	public ArrayList<Product> getProducts(String query) throws Exception {
         Connection conn = getConnection();
 
@@ -104,10 +109,10 @@ public class DbAccess {
 		Map<String, String> connData = getConnectionData();
 		
 		// Initialize connection variables
-        String host = connData.get("Data Source");
-        String database = connData.get("Database");
-        String user = connData.get("User Id");
-        String password = connData.get("Password");
+        String host = connData.get("Data Source");		if (host.isEmpty()) host = DEFAULT_HOST;
+        String database = connData.get("Database");		if (database.isEmpty()) database = DEFAULT_DB;
+        String user = connData.get("User Id");			if (user.isEmpty()) user = DEFAULT_USER;
+        String password = connData.get("Password");		if (password.isEmpty()) password = DEFAULT_PASSWORD;
 
 		if (logger.isDebugEnabled()){
 			logger.debug("DBAccess:getConnection");

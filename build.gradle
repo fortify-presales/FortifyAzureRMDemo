@@ -49,6 +49,7 @@ sourceSets {
 
 war {
     archiveFileName = 'products.war'
+    rootSpec.exclude("**/azuredeploy.*")
 }
 
 azurewebapp {
